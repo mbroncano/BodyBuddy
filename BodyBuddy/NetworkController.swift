@@ -16,12 +16,17 @@ enum NetworkControllerError: ErrorType {
     case InvalidResponse(String)
     case MissingData
     case ParsingError
+    case CoreDataError(String)
 }
 
 enum EntityClass: String {
     case Exercise
     case Language
+    case WeightUnit
+    case ExerciseCategory
 }
+
+let endpoint: [EntityClass: String] = [.Exercise: "exercise?language=2", .Language: "language", .WeightUnit: "weightunit"]
 
 class NetworkController {
     // MARK: Singleton
@@ -46,6 +51,9 @@ class NetworkController {
         
         // Configure Managed Object Context
         managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
+        
+        // By default, overwrite the objects when i.e. there is a a unique constraint error
+//        managedObjectContext.mergePolicy = NSOverwriteMergePolicy
         
         return managedObjectContext
     }()
@@ -83,33 +91,62 @@ class NetworkController {
     }()
     
     // MARK: Data handing
-    let endpoint: [EntityClass: String] = [.Exercise: "exercise", .Language: "language"]
-    
     func mergeResults(entityClass: EntityClass, results: [[String: AnyObject]]) throws {
+    
+        // create temporary, subordinated context for the updates
+        let context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        context.parentContext = self.managedObjectContext
+    
         for result in results {
             // check if the entity is not duplicated
             let fetchRequest = NSFetchRequest(entityName: entityClass.rawValue)
             let predicate = NSPredicate(format: "id=%d", argumentArray: [result["id"]!])
             fetchRequest.predicate = predicate
-            let fetchResults = try self.managedObjectContext.executeFetchRequest(fetchRequest)
+            let fetchResults = try context.executeFetchRequest(fetchRequest)
             
-            // create the new entity
+            let object: NSManagedObject
+            let entityDescription = NSEntityDescription.entityForName(entityClass.rawValue, inManagedObjectContext: context)
             if fetchResults.count == 0 {
-                let entity = NSEntityDescription.entityForName(entityClass.rawValue, inManagedObjectContext: self.managedObjectContext)
-                let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: self.managedObjectContext)
-                
-                switch entityClass {
-                case .Exercise:
-                    object.setValue(result["name"], forKey: "name")
-                    object.setValue(result["description"], forKey: "desc")
-                    object.setValue(result["id"], forKey: "id")
-                case .Language: break
+                object = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: context)
+            } else {
+                object = fetchResults[0] as! NSManagedObject
+            }
+            
+            if let attributes = entityDescription?.attributesByName {
+                for (name, description) in attributes {
+                    
+                    // TODO: attr. mapping
+                    var keyName = name
+                    if name == "desc" {
+                        keyName = "description"
+                    }
+                    
+                    if let resultVal = result[keyName] {
+                        switch description.attributeType {
+                        case .ObjectIDAttributeType:
+                            print("attribute not supported!")
+                        default:
+                            object.setValue(resultVal, forKey: name)
+                        }
+                    } else {
+                        print("attribute <\(name)> not found!")
+                    }
                 }
             }
         }
         
-        try self.managedObjectContext.save()
+        do {
+            // this doesn't push the changes to disk, only to parent
+            try context.save()
+            
+            // saves the changes to disk
+            try self.managedObjectContext.save()
+        } catch {
+            print("Error: \(error)")
+            context.reset()
+        }
     }
+
 
     // MARK: Network
     let baseURL = NSURL(string: "http://wger.localhost:32768/api/v2/")!

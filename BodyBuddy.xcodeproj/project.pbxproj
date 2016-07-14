@@ -16,7 +16,7 @@
 		642F5EC21D36D5300021913E /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642F5EC11D36D5300021913E /* NetworkController.swift */; };
 		642F5EC41D36D8D20021913E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642F5EC31D36D8D20021913E /* SettingsViewController.swift */; };
 		642F5EC71D3709FF0021913E /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 642F5EC51D3709FF0021913E /* Model.xcdatamodeld */; };
-		642F5ECB1D3761D30021913E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 642F5ECA1D3761D30021913E /* README.md */; };
+		642F5ECD1D3811B10021913E /* SelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642F5ECC1D3811B10021913E /* SelectionTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +32,7 @@
 		642F5EC31D36D8D20021913E /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		642F5EC61D3709FF0021913E /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		642F5ECA1D3761D30021913E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		642F5ECC1D3811B10021913E /* SelectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,11 +70,12 @@
 				642F5EAF1D36C0550021913E /* FirstViewController.swift */,
 				642F5EB11D36C0550021913E /* SecondViewController.swift */,
 				642F5EC31D36D8D20021913E /* SettingsViewController.swift */,
+				642F5ECC1D3811B10021913E /* SelectionTableViewController.swift */,
+				642F5EC11D36D5300021913E /* NetworkController.swift */,
 				642F5EB31D36C0550021913E /* Main.storyboard */,
 				642F5EB61D36C0550021913E /* Assets.xcassets */,
 				642F5EB81D36C0550021913E /* LaunchScreen.storyboard */,
 				642F5EBB1D36C0550021913E /* Info.plist */,
-				642F5EC11D36D5300021913E /* NetworkController.swift */,
 				642F5EC51D3709FF0021913E /* Model.xcdatamodeld */,
 			);
 			path = BodyBuddy;
@@ -153,10 +155,10 @@
 				642F5EC21D36D5300021913E /* NetworkController.swift in Sources */,
 				642F5EB21D36C0550021913E /* SecondViewController.swift in Sources */,
 				642F5EC41D36D8D20021913E /* SettingsViewController.swift in Sources */,
-				642F5ECB1D3761D30021913E /* README.md in Sources */,
 				642F5EAE1D36C0550021913E /* AppDelegate.swift in Sources */,
 				642F5EB01D36C0550021913E /* FirstViewController.swift in Sources */,
 				642F5EC71D3709FF0021913E /* Model.xcdatamodeld in Sources */,
+				642F5ECD1D3811B10021913E /* SelectionTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

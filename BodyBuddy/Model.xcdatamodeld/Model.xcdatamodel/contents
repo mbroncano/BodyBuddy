@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
-    <entity name="Exercise" syncable="YES">
+    <entity name="Base" isAbstract="YES" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Exercise" parentEntity="Base" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ExerciseCategory" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Language" syncable="YES">
+        <attribute name="full_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="short_name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="WeightUnit" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="language" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Language" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Exercise" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Exercise" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="Language" positionX="-54" positionY="18" width="128" height="90"/>
+        <element name="WeightUnit" positionX="-36" positionY="45" width="128" height="90"/>
+        <element name="ExerciseCategory" positionX="-18" positionY="72" width="128" height="75"/>
+        <element name="Base" positionX="0" positionY="81" width="128" height="60"/>
     </elements>
 </model>
